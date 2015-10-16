@@ -87,6 +87,9 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 # Better table views in console
 gem 'hirb'
 
+# Audio file upload 
+gem "paperclip", "~> 4.3"
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
