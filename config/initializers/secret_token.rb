@@ -1,0 +1,1 @@
+FalconBackend::Application.config.secret_key_base = "70d1ab3abd726815c1cadf6434114b21ccb083d985f6dff8282f50c4b70c2b505996721779e4182265c0b6a2060628f0f3018cd68aa41daa576433a1b008dc68"
