@@ -1,5 +1,5 @@
 class Audio < ActiveRecord::Base
-  belongs_to :trip
+  belongs_to :user
   belongs_to :cluster
   has_attached_file :audio
   FACTORY = RGeo::Geographic.simple_mercator_factory
