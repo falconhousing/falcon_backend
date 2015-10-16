@@ -2,7 +2,8 @@ class AudiosController < ApplicationController
   before_action :set_audio, only: [:show, :edit, :update, :destroy]
   FACTORY = RGeo::Geographic.simple_mercator_factory
 
-  VM_ADD = "http://dharmendrav.housing.com:4000"
+  # VM_ADD = "http://dharmendrav.housing.com:4000"
+  VM_ADD = "http://neeraja.housing.com:4000"
   
   
   # GET /audios

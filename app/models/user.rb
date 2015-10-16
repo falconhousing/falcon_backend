@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-   has_many :trips, :class_name => "Trip"
+   has_many :audios, :class_name => "Audio"
 end

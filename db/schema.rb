@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20151016155427) do
 
-ActiveRecord::Schema.define(version: 20151016131351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
   create_table "audios", force: true do |t|
     t.string   "acl"
-    t.integer  "trip_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cluster_id"
     t.spatial  "coordinates",        limit: {:srid=>0, :type=>"point"}, null: false
+    t.integer  "cluster_id"
     t.string   "audio_file_name"
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
@@ -31,10 +31,17 @@ ActiveRecord::Schema.define(version: 20151016131351) do
   end
 
   add_index "audios", ["cluster_id"], :name => "index_audios_on_cluster_id"
-  add_index "audios", ["trip_id"], :name => "index_audios_on_trip_id"
+  add_index "audios", ["user_id"], :name => "index_audios_on_user_id"
 
   create_table "clusters", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "follows", force: true do |t|
+    t.integer  "child_id"
+    t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
