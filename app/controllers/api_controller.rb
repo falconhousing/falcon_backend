@@ -1,25 +1,27 @@
 class ApiController < ApplicationController
-
+  include AudiosHelper
+  
   RADIUS = 500
 
   def results
-    binding.pry
     # lat_lng = params["lat_lng"] 
-    lat_lng = "72.0,19.0"
+    lat_lng = "19.0,72.0"
     audios = Audio.scoped
     audios = apply_radius_filter(audios,lat_lng,RADIUS)
-    binding.pry
-    audios = audios.where("acl = 'public' OR ( acl = 'friends' and user_id in #{get_my_friends} ) ")
-
-    posts = audios.all # all matching posts
-
-    binding.pry
-    p "hello"
-
+    sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
+    audios = audios.where(sql)
+    audios = audios.joins{user}.select("audios.*,users.id as user_id,users.name") # all matching posts
+    posts = audios.as_json
+    posts = add_url(posts, audios)
+    render json: posts
   end
 
   private
 
+  def current_user_id
+    1
+  end
+  
   def get_my_friends
     [1,2,3,4,5] #list of friend_ids
   end

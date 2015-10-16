@@ -88,7 +88,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'hirb'
 
 # Audio file upload 
-gem "paperclip", "~> 4.3"
+gem "paperclip", "4.2.1"
 
 # Use unicorn as the app server
 # gem 'unicorn'

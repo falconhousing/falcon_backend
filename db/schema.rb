@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(version: 20151016155427) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "coordinates",        limit: {:srid=>0, :type=>"point"}, null: false
-    t.integer  "cluster_id"
     t.string   "audio_file_name"
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.datetime "audio_updated_at"
+    t.integer  "cluster_id"
   end
 
   add_index "audios", ["cluster_id"], :name => "index_audios_on_cluster_id"

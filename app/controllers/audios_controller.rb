@@ -1,10 +1,7 @@
 class AudiosController < ApplicationController
   before_action :set_audio, only: [:show, :edit, :update, :destroy]
   FACTORY = RGeo::Geographic.simple_mercator_factory
-
-  # VM_ADD = "http://dharmendrav.housing.com:4000"
-  VM_ADD = "http://neeraja.housing.com:4000"
-  
+  include AudiosHelper
   
   # GET /audios
   # GET /audios.json
@@ -21,11 +18,7 @@ class AudiosController < ApplicationController
   def get_all_audios
     all_obj = Audio.all
     audio = all_obj.as_json
-    count = 0
-    audio.each do |i|
-      i[:audio_url] = VM_ADD+all_obj[count].audio.url
-      count+=1
-    end
+    audio = add_url(audio, all_obj)
     render json: audio
   end
   
@@ -100,6 +93,6 @@ class AudiosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def audio_params
-      params.permit(:audio, :latitude, :longitude, :trip_id, :acl)
+      params.permit(:audio, :latitude, :longitude, :acl)
     end
 end
