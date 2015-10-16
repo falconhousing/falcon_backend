@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016114007) do
+ActiveRecord::Schema.define(version: 20151016122957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,17 @@ ActiveRecord::Schema.define(version: 20151016114007) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "coordinates", limit: {:srid=>0, :type=>"point"}, null: false
+    t.integer  "cluster_id"
   end
 
+  add_index "audios", ["cluster_id"], :name => "index_audios_on_cluster_id"
   add_index "audios", ["trip_id"], :name => "index_audios_on_trip_id"
+
+  create_table "clusters", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trips", force: true do |t|
     t.string   "name"
