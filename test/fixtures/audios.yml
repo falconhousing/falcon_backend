@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  file: MyText
+  acl: MyString
+  coordinates: 
+  trip_id: 
+
+two:
+  file: MyText
+  acl: MyString
+  coordinates: 
+  trip_id: 
