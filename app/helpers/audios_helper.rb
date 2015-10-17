@@ -29,16 +29,20 @@ module AudiosHelper
   def get_grouped_audios params
     audios = get_audios(params)[:stories]
     grouped = {}
+    g_array = []
     audios.each do |audio|
       hash = audio.except("user_id", "name")
       if grouped.has_key? audio["user_id"]
         grouped[audio["user_id"]]["stories"].push(hash)
       else
-        grouped[audio["user_id"]] = {"stories" => [], "name" => audio["name"]}
+        grouped[audio["user_id"]] = {"stories" => [], "name" => audio["name"], "user_id" => audio["user_id"]}
         grouped[audio["user_id"]]["stories"].push(hash)
       end
     end
-    {:user_id => grouped}
+    grouped.keys.each do |k|
+      g_array.push(grouped[k])
+    end
+    {:user_audios => g_array}
   end
   
   
