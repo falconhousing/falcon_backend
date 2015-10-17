@@ -10,7 +10,7 @@ class ApiController < ApplicationController
   end
 
   def validate_session
-    # auth_token = params[:auth_token]
+    auth_token = params[:login_auth_token]
 
     auth_token = "STU4Qh7UWQgUm341caUB0tC4hzLMOQd2I_ZH4ZPKfDqYSKcXIg_qXS1qDRHImjVD2f6tSjk8l8muDczdcd-IYAA5gP43h2bfZFro1fCjkDhpYvu1srh4w7oLsQImDA24fETPqgIyObovi2AEYPezGWLvJoDpkS4YSBIfQt8z5ZY"
 
@@ -23,6 +23,10 @@ class ApiController < ApplicationController
       friends_uuids = token_data[:friends]
       client_uuid = token_data[:user]["uuid"]
       user = User.find_by_client_uuid(client_uuid)
+      if user 
+        user.picture = token_data[:user]["profile_picture_url"]
+        user.save
+      end
       @user_id = user.id if user
       unless user
         pic = token_data[:user]["profile_picture_url"]
