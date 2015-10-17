@@ -40,6 +40,7 @@ class ApiController < ApplicationController
     render json: posts
   end
 
+<<<<<<< HEAD
   private
 
   def current_user_id
@@ -50,10 +51,11 @@ class ApiController < ApplicationController
   def get_my_friends
     [1,2,3,4,5] #list of friend_ids
     @friends
-  
+=======
   def grouped_feed
     posts = get_grouped_audios params
     render json: posts
+>>>>>>> 08d50ba7b62987c44bcabcd907758259df31ea74
   end
     
   def search
