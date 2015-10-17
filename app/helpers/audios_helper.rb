@@ -27,7 +27,7 @@ module AudiosHelper
   end
   
   def get_grouped_audios params,current_user_id,get_my_friends
-    audios = get_audios(params)[:stories]
+    audios = get_audios(params,current_user_id,get_my_friends)[:stories]
     grouped = {}
     g_array = []
     audios.each do |audio|
