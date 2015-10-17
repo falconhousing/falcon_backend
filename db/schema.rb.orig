@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20151016183513) do
+=======
 ActiveRecord::Schema.define(version: 20151016184105) do
+>>>>>>> 08d50ba7b62987c44bcabcd907758259df31ea74
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +32,12 @@ ActiveRecord::Schema.define(version: 20151016184105) do
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.datetime "audio_updated_at"
+<<<<<<< HEAD
+=======
     t.integer  "cluster_id"
     t.string   "location"
     t.string   "poi"
+>>>>>>> 08d50ba7b62987c44bcabcd907758259df31ea74
   end
 
   add_index "audios", ["cluster_id"], :name => "index_audios_on_cluster_id"
