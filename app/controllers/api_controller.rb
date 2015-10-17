@@ -11,11 +11,9 @@ class ApiController < ApplicationController
 
   def validate_session
     # auth_token = params[:auth_token]
-    # auth_token = "1f9GE656R1UwHTiyKSLjE7C_d5oxezcRcn6ASutki679gXBsaLti7KHMDPAnFjaP9fLPK6XlSs6G-wsroeUtwrBIUvMXBUkYqJTO4yWVxu239YPgQwFfMc_e9YvOqdoJNsZpamlMSzlNqMB5nMtmXHkuM_Rb6osCXoF0cR7q7a8"
 
     auth_token = "STU4Qh7UWQgUm341caUB0tC4hzLMOQd2I_ZH4ZPKfDqYSKcXIg_qXS1qDRHImjVD2f6tSjk8l8muDczdcd-IYAA5gP43h2bfZFro1fCjkDhpYvu1srh4w7oLsQImDA24fETPqgIyObovi2AEYPezGWLvJoDpkS4YSBIfQt8z5ZY"
 
-    binding.pry
 
     uri = URI.parse("http://neeraja.housing.com:3030/token-details?auth_token=#{auth_token}")
     response = Net::HTTP.get_response(uri)
