@@ -15,7 +15,7 @@ module AudiosHelper
   end
   
   
-  def get_audios params
+  def get_audios params,current_user_id,get_my_friends
     lat, lng = params["latitude"], params["longitude"]
     audios = Audio.scoped
     audios = apply_radius_filter(audios,lat, lng,RADIUS)
@@ -26,7 +26,7 @@ module AudiosHelper
     add_url(posts, audios)
   end
   
-  def get_grouped_audios params
+  def get_grouped_audios params,current_user_id,get_my_friends
     audios = get_audios(params)[:stories]
     grouped = {}
     g_array = []
@@ -46,7 +46,7 @@ module AudiosHelper
   end
   
   
-  def get_user_name_search_result params
+  def get_user_name_search_result params, current_user_id, get_my_friends
     begin
       sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
       audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").where(sql).select("audios.*, users.id as user_id,users.name")
@@ -60,14 +60,6 @@ module AudiosHelper
   
   
   private
-  
-  def current_user_id
-    1
-  end
-
-  def get_my_friends
-    [1,2,3,4,5] #list of friend_ids
-  end
 
   def apply_radius_filter(audios, lat, lng, radius)
     lat_lng = [lat, lng]

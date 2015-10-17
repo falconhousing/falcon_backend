@@ -34,19 +34,21 @@ class ApiController < ApplicationController
   end
   
   def results
-    posts = get_audios params
+    posts = get_audios params,current_user_id,get_my_friends
     render json: posts
   end
-  
-  def grouped_feed
+
+   def grouped_feed current_user_id,get_my_friends
     posts = get_grouped_audios params
     render json: posts
   end
     
-  def search
+  def search current_user_id,get_my_friends
     posts = get_user_name_search_result params
     render json: posts
   end
+  
+ 
   
   private
 
