@@ -21,7 +21,7 @@ module AudiosHelper
     audios = apply_radius_filter(audios,lat, lng,RADIUS)
     sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
     audios = audios.where(sql)
-    audios = audios.joins{user}.select("audios.id, audios.audio_updated_at, audios.coordinates,audios.location,audios.poi,users.id as user_id,users.name") # all matching posts
+    audios = audios.joins{user}.select("audios.*,users.id as user_id,users.name") # all matching posts
     posts = audios.as_json
     add_url(posts, audios)
   end
@@ -44,7 +44,7 @@ module AudiosHelper
   
   def get_user_name_search_result params
     begin
-      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").select("audios.id, audios.audio_updated_at, audios.coordinates,audios.location,audios.poi,users.id as user_id,users.name")
+      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").select("audios.*, users.id as user_id,users.name")
       posts = audios.as_json
       add_url(posts, audios)
     rescue
