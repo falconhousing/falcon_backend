@@ -44,7 +44,8 @@ module AudiosHelper
   
   def get_user_name_search_result params
     begin
-      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").select("audios.*, users.id as user_id,users.name")
+      sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
+      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").where(sql).select("audios.*, users.id as user_id,users.name")
       posts = audios.as_json
       add_url(posts, audios)
     rescue
