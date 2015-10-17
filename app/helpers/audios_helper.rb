@@ -21,7 +21,7 @@ module AudiosHelper
     audios = apply_radius_filter(audios,lat, lng,RADIUS)
     sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
     audios = audios.where(sql)
-    audios = audios.joins{user}.select("audios.*,users.id as user_id,users.name") # all matching posts
+    audios = audios.joins{user}.select("audios.*,users.id as user_id,users.name, users.picture as user_picture") # all matching posts
     posts = audios.as_json
     add_url(posts, audios)
   end
@@ -29,23 +29,27 @@ module AudiosHelper
   def get_grouped_audios params,current_user_id,get_my_friends
     audios = get_audios(params,current_user_id,get_my_friends)[:stories]
     grouped = {}
+    g_array = []
     audios.each do |audio|
       hash = audio.except("user_id", "name")
       if grouped.has_key? audio["user_id"]
         grouped[audio["user_id"]]["stories"].push(hash)
       else
-        grouped[audio["user_id"]] = {"stories" => [], "name" => audio["name"]}
+        grouped[audio["user_id"]] = {"stories" => [], "name" => audio["name"], "user_id" => audio["user_id"], "user_picture" => audio["user_picture"]}
         grouped[audio["user_id"]]["stories"].push(hash)
       end
     end
-    {:user_id => grouped}
+    grouped.keys.each do |k|
+      g_array.push(grouped[k])
+    end
+    {:user_audios => g_array}
   end
   
   
   def get_user_name_search_result params, current_user_id, get_my_friends
     begin
       sql = "acl = 'public' OR ( acl = 'friends' and user_id in (?)) OR user_id = ?", get_my_friends, current_user_id
-      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").where(sql).select("audios.*, users.id as user_id,users.name")
+      audios = Audio.joins{user}.where("name like ?", "%#{params[:q]}%").where(sql).select("audios.*, users.id as user_id,users.name, users.picture as user_picture")
       posts = audios.as_json
       add_url(posts, audios)
     rescue

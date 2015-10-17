@@ -12,7 +12,7 @@ class ApiController < ApplicationController
   def validate_session
     auth_token = params[:login_auth_token]
 
-    auth_token = "STU4Qh7UWQgUm341caUB0tC4hzLMOQd2I_ZH4ZPKfDqYSKcXIg_qXS1qDRHImjVD2f6tSjk8l8muDczdcd-IYAA5gP43h2bfZFro1fCjkDhpYvu1srh4w7oLsQImDA24fETPqgIyObovi2AEYPezGWLvJoDpkS4YSBIfQt8z5ZY"
+    auth_token ||= "STU4Qh7UWQgUm341caUB0tC4hzLMOQd2I_ZH4ZPKfDqYSKcXIg_qXS1qDRHImjVD2f6tSjk8l8muDczdcd-IYAA5gP43h2bfZFro1fCjkDhpYvu1srh4w7oLsQImDA24fETPqgIyObovi2AEYPezGWLvJoDpkS4YSBIfQt8z5ZY"
 
 
     uri = URI.parse("http://neeraja.housing.com:3030/token-details?auth_token=#{auth_token}")
@@ -49,8 +49,8 @@ class ApiController < ApplicationController
     render json: posts
   end
     
-  def search current_user_id,get_my_friends
-    posts = get_user_name_search_result params
+  def search
+    posts = get_user_name_search_result params, current_user_id, get_my_friends
     render json: posts
   end
   
@@ -59,14 +59,11 @@ class ApiController < ApplicationController
   private
 
   def current_user_id
-    1
     @user_id
   end
 
   def get_my_friends
-    [1,2,3,4,5] #list of friend_ids
     @friends
   end
-
-
+  
 end
