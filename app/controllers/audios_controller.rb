@@ -12,7 +12,6 @@ class AudiosController < ApplicationController
   # GET /audios/1
   # GET /audios/1.json
   def show
-    debugger
   end
 
   def get_all_audios
@@ -93,6 +92,6 @@ class AudiosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def audio_params
-      params.permit(:audio, :latitude, :longitude, :acl)
+      params.permit(:audio, :latitude, :longitude, :acl, :location, :poi)
     end
 end

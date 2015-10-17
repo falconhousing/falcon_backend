@@ -8,5 +8,6 @@ class Audio < ActiveRecord::Base
   validates_attachment_presence :audio
   
   validates_inclusion_of :acl, :in => ["friends", "me", "public"], :allow_nil => false
+  validates_presence_of :location
   
 end
