@@ -50,6 +50,7 @@ class ApiController < ApplicationController
   def get_my_friends
     [1,2,3,4,5] #list of friend_ids
     @friends
+  end
   
   def grouped_feed
     posts = get_grouped_audios params
