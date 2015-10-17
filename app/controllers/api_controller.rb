@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
   include AudiosHelper
 
-  PERMISSION = false
+  PERMISSION = true
 
   before_filter do |controller|
     if PERMISSION
@@ -10,9 +10,12 @@ class ApiController < ApplicationController
   end
 
   def validate_session
-    return true
     # auth_token = params[:auth_token]
-    auth_token = "1f9GE656R1UwHTiyKSLjE7C_d5oxezcRcn6ASutki679gXBsaLti7KHMDPAnFjaP9fLPK6XlSs6G-wsroeUtwrBIUvMXBUkYqJTO4yWVxu239YPgQwFfMc_e9YvOqdoJNsZpamlMSzlNqMB5nMtmXHkuM_Rb6osCXoF0cR7q7a8"
+    # auth_token = "1f9GE656R1UwHTiyKSLjE7C_d5oxezcRcn6ASutki679gXBsaLti7KHMDPAnFjaP9fLPK6XlSs6G-wsroeUtwrBIUvMXBUkYqJTO4yWVxu239YPgQwFfMc_e9YvOqdoJNsZpamlMSzlNqMB5nMtmXHkuM_Rb6osCXoF0cR7q7a8"
+
+    auth_token = "STU4Qh7UWQgUm341caUB0tC4hzLMOQd2I_ZH4ZPKfDqYSKcXIg_qXS1qDRHImjVD2f6tSjk8l8muDczdcd-IYAA5gP43h2bfZFro1fCjkDhpYvu1srh4w7oLsQImDA24fETPqgIyObovi2AEYPezGWLvJoDpkS4YSBIfQt8z5ZY"
+
+    binding.pry
 
     uri = URI.parse("http://neeraja.housing.com:3030/token-details?auth_token=#{auth_token}")
     response = Net::HTTP.get_response(uri)
@@ -24,7 +27,8 @@ class ApiController < ApplicationController
       user = User.find_by_client_uuid(client_uuid)
       @user_id = user.id if user
       unless user
-        flag = User.create(name: name, client_uuid: client_uuid)
+        pic = token_data[:user]["profile_picture_url"]
+        flag = User.create(name: name, client_uuid: client_uuid,picture: pic)
         @user_id = flag.id
       end
       @friends = User.where(client_uuid: friends_uuids).pluck(:id) rescue []
@@ -38,8 +42,8 @@ class ApiController < ApplicationController
     render json: posts
   end
 
-   def grouped_feed current_user_id,get_my_friends
-    posts = get_grouped_audios params
+   def grouped_feed 
+    posts = get_grouped_audios params,current_user_id,get_my_friends
     render json: posts
   end
     
