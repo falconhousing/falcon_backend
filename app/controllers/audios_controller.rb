@@ -35,7 +35,9 @@ class AudiosController < ApplicationController
   # POST /audios.json
   def create
     params = set_coordinates_from_lat_long(audio_params)
+    params[:user_id] = @user_id
     @audio = Audio.new(params)
+    raise "Invalid User" unless params[:user_id]
     respond_to do |format|
       if @audio.save
         format.html { redirect_to @audio, notice: 'Audio was successfully created.' }
@@ -92,6 +94,6 @@ class AudiosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def audio_params
-      params.permit(:audio, :latitude, :longitude, :acl, :location, :poi)
+      params.permit(:audio, :latitude, :longitude, :acl, :location, :poi, :user_id)
     end
 end

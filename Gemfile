@@ -90,6 +90,8 @@ gem 'hirb'
 # Audio file upload 
 gem "paperclip", "4.2.1"
 
+gem 'rack-cors'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

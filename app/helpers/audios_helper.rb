@@ -1,6 +1,6 @@
 module AudiosHelper
   VM_ADD = "http://dharmendrav.housing.com:4000"
-  RADIUS = 500
+  RADIUS = 2500
   # VM_ADD = "http://neeraja.housing.com:4000"
   
   def add_url posts, audios
@@ -72,7 +72,7 @@ module AudiosHelper
   end
 
   def view_count
-    (1..1000).to_a.sample
+    (1..20).to_a.sample
   end
   
 end

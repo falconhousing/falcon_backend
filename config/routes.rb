@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
     get 'get_feed' => 'api#results'
+    get 'current_user' => 'api#current_user'
     get 'get_feed_grouped' => 'api#grouped_feed'
     get 'search' => 'api#search'
     get 'audios/get_all_audios' => 'audios#get_all_audios'
